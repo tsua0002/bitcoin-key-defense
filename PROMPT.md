@@ -1,3 +1,13 @@
+# Prompt — Physical Security for Bitcoin Holders
+
+Generated with: **Lovable**  
+Date: April 2026  
+Result: https://bitcoin-key-defense.vercel.app/
+
+---
+
+## Prompt original
+
 Build a single-page web application in React called "Physical Security for Bitcoin Holders" 
 
 (working title, make it feel like a serious security resource, not a blog).
@@ -25,6 +35,7 @@ not "crypto influencer".
 ---
 
 ## DESIGN DIRECTION
+
 I am providing the XKCD #538 comic as a visual reference for the two-panel 
 
 SVG illustration in Section 1. Use it strictly as conceptual and stylistic 
@@ -374,3 +385,64 @@ No social links unless you want to add LinkedIn manually later.
 - No detailed MPC implementation instructions
 
 - No prices — consultation pricing is discussed after first contact
+
+---
+
+## Modifications post-génération
+
+### 1. Formulaire de contact — Formspree
+
+Le formulaire généré par Lovable utilisait un `mailto:` fallback. Remplacé par Formspree.
+
+Endpoint : `https://formspree.io/f/mpqogoaa`
+
+Bloc `onSubmit` remplacé par :
+
+```jsx
+const [submitted, setSubmitted] = React.useState(false);
+const [sending, setSending] = React.useState(false);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSending(true);
+  const form = e.target as HTMLFormElement;
+  const data = new FormData(form);
+  await fetch("https://formspree.io/f/mpqogoaa", {
+    method: "POST",
+    body: data,
+    headers: { Accept: "application/json" },
+  });
+  setSending(false);
+  setSubmitted(true);
+  form.reset();
+};
+
+if (submitted) {
+  return (
+    <div className="mt-8 max-w-md p-6 border border-orange-300 bg-orange-50 rounded">
+      <p className="font-mono text-sm text-orange-800">
+        Message envoyé. Je reviendrai vers vous rapidement.
+      </p>
+    </div>
+  );
+}
+```
+
+Bouton modifié :
+
+```jsx
+<button type="submit" disabled={sending}>
+  {sending ? "Sending..." : "Send"}
+</button>
+```
+
+---
+
+## À faire (backlog)
+
+- [ ] Ajouter nom / handle dans le footer
+- [ ] Ajouter lien LinkedIn dans la nav ou le footer
+- [ ] Ajouter disclaimer explicite sur le champ secret : "N'entrez jamais votre vraie seed phrase dans un navigateur"
+- [ ] Ajouter bandeau contextuel en intro référençant la loi sur la déclaration des wallets self-custody (avril 2026)
+- [ ] Tester le rendu mobile — vérifier le débordement des shares SSS en monospace
+- [ ] "I never touch your keys. Ever." — augmenter la taille visuelle de cette ligne
