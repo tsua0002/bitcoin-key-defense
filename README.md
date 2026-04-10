@@ -6,6 +6,20 @@ Single-page site for an independent Bitcoin security consultant: educate on **ph
 
 ---
 
+## Origin
+
+Built in under an hour from a single prompt, following a LinkedIn discussion 
+on the French self-custody declaration law — [Projet de loi n°2115, adopté le 7 avril 2026](https://www.assemblee-nationale.fr/dyn/17/dossiers/DLR5L17N52985) 
+— and its implications for the physical security of Bitcoin holders.
+
+The prompt that generated this site is included in [`PROMPT.md`](./PROMPT.md) — 
+not as a boilerplate, but as a demonstration that knowing *what to ask* 
+is the actual skill. The code is a commodity. The brief is not.
+
+**Author:** Thomas Suau (@tsua0002) — Bitcoin security architecture consultant.  
+**Site:** [bitcoin-key-defense.vercel.app](https://bitcoin-key-defense.vercel.app/)  
+**Contact:** via the site or [LinkedIn](www.linkedin.com/in/thomas-s-92932889)
+
 ## What this site is for
 
 1. **Threat model** — Reframe risk: the attacker often does not care that your cryptography is “perfect”; leverage and physical exposure matter.
