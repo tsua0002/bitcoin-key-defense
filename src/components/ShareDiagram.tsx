@@ -1,14 +1,22 @@
+import { useTranslation } from "react-i18next";
+
 interface ShareDiagramProps {
   total: number;
   required: number;
 }
 
 const ShareDiagram = ({ total, required }: ShareDiagramProps) => {
+  const { t } = useTranslation();
   const width = Math.min(total * 80, 640);
   const cx = width / 2;
 
   return (
-    <svg viewBox={`0 0 ${width} 120`} className="w-full max-w-xl mx-auto my-6" role="img" aria-label={`Diagram showing ${total} shares, ${required} required`}>
+    <svg
+      viewBox={`0 0 ${width} 120`}
+      className="w-full max-w-xl mx-auto my-6"
+      role="img"
+      aria-label={t("shareDiagram.aria", { total, required })}
+    >
       {Array.from({ length: total }, (_, i) => {
         const isRequired = i < required;
         const x = (i + 0.5) * (width / total);
@@ -43,13 +51,13 @@ const ShareDiagram = ({ total, required }: ShareDiagramProps) => {
               fontSize="9"
               fill={isRequired ? "hsl(22,100%,38%)" : "hsl(220,10%,46%)"}
             >
-              {isRequired ? "required" : "can be lost"}
+              {isRequired ? t("shareDiagram.required") : t("shareDiagram.canBeLost")}
             </text>
           </g>
         );
       })}
       <text x={cx} y="110" textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="10" fill="hsl(220,10%,46%)">
-        {required} of {total} shares needed to reconstruct
+        {t("shareDiagram.caption", { required, total })}
       </text>
     </svg>
   );

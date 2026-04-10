@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "Sécurité physique pour les détenteurs de bitcoins"
+  },
+  "nav": {
+    "brand": "SÉCURITÉ PHYSIQUE",
+    "threatModel": "Modèle de menace",
+    "sssDemo": "Démo SSS",
+    "consultation": "Consultation",
+    "githubAria": "Voir le code sur GitHub",
+    "language": "Langue",
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "hero": {
+    "title1": "Votre chiffrement est parfait.",
+    "title2": "Votre attaquant s'en fiche.",
+    "subtitle": "La menace pour vos bitcoins n'est pas cryptographique. Elle est physique."
+  },
+  "wrench": {
+    "aria": "Illustration en deux cases : la première montre une personne protégée par des défenses cryptographiques ; la deuxième, la même personne face à quelqu'un avec une clé à molette.",
+    "panel1Title": "LA CONFIANCE DU PASSIONNÉ DE CRYPTO",
+    "thought": "« Je suis en sécurité absolue. »",
+    "speech": "« Donne-moi la clé. »",
+    "reaction": "« … d'accord. »",
+    "panel2Title": "CE QUI SE PASSE VRAIMENT",
+    "captionBefore": "Une clé à molette à 5 dollars. Fin de partie.",
+    "captionHighlight": "Sauf si vous architecturez pour ce cas."
+  },
+  "threatModel": {
+    "title": "Contre qui vous protégez-vous ?",
+    "opportunistTitle": "L'opportuniste",
+    "opportunistBody": "Ne sait pas ce que vous détenez. Cible les occasions. La sécurité classique (portefeuille matériel, coffre, discrétion) suffit. La nouvelle loi sur la déclaration d'auto-détention porte directement atteinte à cette couche.",
+    "targetedTitle": "Le professionnel ciblé",
+    "targetedBody": "Sait que vous détenez une valeur significative (fuite de données, déclaration publique, ingénierie sociale). Patient. Peut revenir. La sécurité classique échoue ici. Le temps et la distribution sont vos seuls vrais leviers.",
+    "coerciveTitle": "L'attaquant coercitif",
+    "coerciveBody": "A de la prise (famille, durée, escalade). Aucune architecture n'élimine cela entièrement. L'objectif n'est pas l'invulnérabilité — c'est de rendre l'attaque trop coûteuse, trop lente et trop incertaine pour qu'elle vaille le coup.",
+    "disclaimer": "Aucune architecture ne garantit une protection absolue. L'objectif est un coût asymétrique : l'attaque doit coûter plus que le gain attendu."
+  },
+  "crypto": {
+    "title": "Les primitives que les gouvernements et les institutions utilisent — sont désormais accessibles.",
+    "p1": "Pendant des décennies, les architectures cryptographiques avancées — distribution de secrets, signatures seuil, accès différé — étaient réservées aux acteurs étatiques et aux grandes institutions financières.",
+    "p2": "Bitcoin et son écosystème ont rendu ces primitives accessibles à tout détenteur prêt à les mettre en œuvre correctement. L'écart entre un gouvernement et un individu ne tient plus aux primitives disponibles — mais à la mise en œuvre, à la sécurité opérationnelle et à l'architecture qui les entoure.",
+    "quoteLine1": "« Si quelqu'un capture le président, il n'obtient pas les codes nucléaires.",
+    "quoteLine2": "Pas seul. Pas comme ça. »",
+    "quoteAfter": "Le même principe architectural s'applique à vos bitcoins."
+  },
+  "sss": {
+    "sectionTitle": "Voyez-le fonctionner. Comprenez pourquoi c'est important.",
+    "sectionIntro": "Le partage de secret de Shamir divise un secret en N parts, dont M suffisent pour le reconstituer. Une seule part ne révèle rien sur le secret.",
+    "modeSplit": "DIVISER",
+    "modeReconstruct": "RECONSTITUER",
+    "labelSecret": "Saisissez votre secret",
+    "placeholderSecret": "ex. phrase de récupération, mot de passe, toute chaîne",
+    "labelTotalShares": "Nombre total de parts (N)",
+    "labelThreshold": "Parts nécessaires (M)",
+    "split": "Diviser",
+    "pasteShares": "Collez vos parts",
+    "sharePlaceholder": "Part {{n}}",
+    "reconstruct": "Reconstituer",
+    "reconstructedLabel": "Secret reconstitué",
+    "copyShareAria": "Copier la part {{n}}",
+    "bestPracticesTitle": "BONNES PRATIQUES",
+    "bp1": "Ne stockez jamais toutes les parts au même endroit ou sur le même support",
+    "bp2": "Ne stockez jamais les parts numériquement si elles protègent une phrase de récupération",
+    "bp3": "Une part à domicile, une chez un tiers de confiance, une dans un lieu géographiquement distinct — jamais un proche identifiable",
+    "bp4": "Le moment de la reconstitution est votre moment le plus vulnérable — préparez l'environnement en conséquence",
+    "bp5": "Une part seule ne révèle rien. Protégez le schéma (combien, quel seuil), pas seulement les parts.",
+    "bp6": "Testez votre reconstitution avant d'en avoir besoin",
+    "disclaimer": "Cette démo s'exécute entièrement dans votre navigateur. Rien n'est transmis. À visée pédagogique. Pour des mises en production protégeant une valeur significative, consultez un spécialiste.",
+    "errEmptySecret": "Veuillez saisir un secret à diviser.",
+    "errSplitFailed": "Échec de la division du secret. Vérifiez vos paramètres.",
+    "errMinShares": "Fournissez au moins 2 parts.",
+    "errReconstructFailed": "Parts incompatibles ou insuffisantes."
+  },
+  "shareDiagram": {
+    "aria": "Schéma : {{total}} parts, {{required}} requises pour reconstituer",
+    "required": "requis",
+    "canBeLost": "perdable",
+    "caption": "{{required}} part(s) sur {{total}} nécessaires pour reconstituer"
+  },
+  "above": {
+    "title": "Le SSS est une base solide. Il existe des niveaux au-dessus.",
+    "p1": "Le SSS a une limite structurelle : le secret doit être reconstitué à un moment donné, ce qui crée un instant d'exposition. Pendant la reconstitution, le secret complet existe en un seul endroit — ne serait-ce qu'un instant.",
+    "p2": "Les environnements institutionnels utilisent des architectures où le secret n'est jamais reconstitué en entier. Le calcul distribué permet de signer sans qu'aucune partie ne détienne la clé complète. Ces approches — utilisées par les grands dépositaires et institutions financières — deviennent accessibles mais exigent une mise en œuvre prudente et contextuelle.",
+    "p3": "La bonne architecture dépend de votre modèle de menace, de vos avoirs et de vos contraintes opérationnelles. Il n'y a pas de réponse universelle."
+  },
+  "consultation": {
+    "title": "Votre situation est unique. Votre architecture devrait l'être aussi.",
+    "intro": "Une recommandation sans contexte est une mauvaise recommandation. J'accompagne les détenteurs de bitcoins sur l'architecture de sécurité — de l'évaluation du modèle de menace aux conseils de mise en œuvre.",
+    "tier1Title": "Audit de sécurité & évaluation des menaces",
+    "tier1Desc": "Nous définissons contre qui vous vous protégez et cartographions votre exposition actuelle.",
+    "tier2Title": "Recommandation d'architecture",
+    "tier2Desc": "Un document écrit et personnalisé décrivant l'architecture adaptée à votre profil et à vos avoirs. La mise en œuvre reste de votre responsabilité.",
+    "tier3Title": "Accompagnement à la mise en œuvre",
+    "tier3Desc": "Un guidage pas à pas pendant votre mise en œuvre. Je ne touche jamais à vos clés. Jamais.",
+    "disclaimer": "Toutes les prestations sont de nature consultative. Les choix de mise en œuvre et la responsabilité opérationnelle restent entièrement du côté du client. Je n'ai accès ni aux fonds ni aux secrets des clients.",
+    "cta": "Demander une consultation",
+    "formSuccess": "Message envoyé. Je vous répondrai rapidement.",
+    "formName": "Nom",
+    "formEmail": "E-mail",
+    "formMessage": "Décrivez brièvement votre situation",
+    "sending": "Envoi…",
+    "send": "Envoyer"
+  },
+  "footer": {
+    "tagline": "Architecture de sécurité Bitcoin · Conseil"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oups ! Page introuvable",
+    "home": "Retour à l'accueil"
+  }
+}

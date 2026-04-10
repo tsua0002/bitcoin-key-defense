@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "Physical Security for Bitcoin Holders"
+  },
+  "nav": {
+    "brand": "PHYSICAL SECURITY",
+    "threatModel": "Threat Model",
+    "sssDemo": "SSS Demo",
+    "consultation": "Consultation",
+    "githubAria": "View source on GitHub",
+    "language": "Language",
+    "en": "English",
+    "fr": "French"
+  },
+  "hero": {
+    "title1": "Your encryption is perfect.",
+    "title2": "Your attacker doesn't care.",
+    "subtitle": "The threat to your Bitcoin is not cryptographic. It is physical."
+  },
+  "wrench": {
+    "aria": "Two-panel illustration: Panel 1 shows a figure protected by cryptographic defenses. Panel 2 shows the same figure confronted by someone with a wrench.",
+    "panel1Title": "A CRYPTO ENTHUSIAST'S CONFIDENCE",
+    "thought": "\"I'm perfectly secure.\"",
+    "panel2Title": "WHAT ACTUALLY HAPPENS",
+    "speech": "\"Give me the key.\"",
+    "reaction": "\"...okay.\"",
+    "captionBefore": "$5 wrench. Game over.",
+    "captionHighlight": "Unless you architect for this."
+  },
+  "threatModel": {
+    "title": "Who are you protecting against?",
+    "opportunistTitle": "The Opportunist",
+    "opportunistBody": "Does not know how much you hold. Targets of opportunity. Standard security (hardware wallet, safe, discretion) is sufficient. The new self-custody declaration law is a direct attack against this layer.",
+    "targetedTitle": "The Targeted Professional",
+    "targetedBody": "Knows you hold significant value (from a data leak, a public declaration, social engineering). Patient. May return. Standard security fails here. Time and distribution are your only real tools.",
+    "coerciveTitle": "The Coercive Attacker",
+    "coerciveBody": "Has leverage (family, duration, escalation). No architecture eliminates this entirely. The goal is not invulnerability — it is making the attack too costly, too slow, and too uncertain to be worth it.",
+    "disclaimer": "No architecture guarantees absolute protection. The goal is asymmetric cost: the attack must cost more than the expected gain."
+  },
+  "crypto": {
+    "title": "The primitives that governments and institutions use — are now accessible to you.",
+    "p1": "For decades, advanced cryptographic architectures — secret distribution, threshold signatures, time-delayed access — were reserved for state actors and large financial institutions.",
+    "p2": "Bitcoin and its surrounding tooling have made these primitives accessible to any holder willing to implement them correctly. The gap between a government and an individual is no longer the cryptography available — it is the implementation, the operational security, and the architecture built around it.",
+    "quoteLine1": "\"If someone captures the President, they don't get the nuclear codes.",
+    "quoteLine2": "Not alone. Not like that.\"",
+    "quoteAfter": "The same architectural principle applies to your Bitcoin."
+  },
+  "sss": {
+    "sectionTitle": "See it work. Understand why it matters.",
+    "sectionIntro": "Shamir's Secret Sharing splits a secret into N shares, requiring M of them to reconstruct it. No single share reveals anything about the secret.",
+    "modeSplit": "SPLIT",
+    "modeReconstruct": "RECONSTRUCT",
+    "labelSecret": "Enter your secret",
+    "placeholderSecret": "e.g. a seed phrase, a password, any string",
+    "labelTotalShares": "Total shares (N)",
+    "labelThreshold": "Shares required (M)",
+    "split": "Split",
+    "pasteShares": "Paste your shares",
+    "sharePlaceholder": "Share {{n}}",
+    "reconstruct": "Reconstruct",
+    "reconstructedLabel": "Reconstructed secret",
+    "copyShareAria": "Copy share {{n}}",
+    "bestPracticesTitle": "BEST PRACTICES",
+    "bp1": "Never store all shares in the same location or medium",
+    "bp2": "Never store shares digitally if they protect a seed phrase",
+    "bp3": "One share at home, one with a trusted third party, one in a geographically separate location — never a close relative who could be identified",
+    "bp4": "The reconstruction moment is your most vulnerable moment — prepare the environment accordingly",
+    "bp5": "A share alone reveals nothing. Protect the schema (how many, what threshold), not just the shares.",
+    "bp6": "Test your reconstruction before you need it",
+    "disclaimer": "This demo runs entirely in your browser. Nothing is transmitted. Use for educational purposes. For production implementations protecting significant value, consult a specialist.",
+    "errEmptySecret": "Please enter a secret to split.",
+    "errSplitFailed": "Failed to split the secret. Please check your inputs.",
+    "errMinShares": "Please provide at least 2 shares.",
+    "errReconstructFailed": "Shares are incompatible or insufficient."
+  },
+  "shareDiagram": {
+    "aria": "Diagram showing {{total}} shares, {{required}} required to reconstruct",
+    "required": "required",
+    "canBeLost": "can be lost",
+    "caption": "{{required}} of {{total}} shares needed to reconstruct"
+  },
+  "above": {
+    "title": "SSS is a strong foundation. There are levels above.",
+    "p1": "SSS has one structural limitation: the secret must be reconstructed at some point, creating a moment of exposure. During reconstruction, the full secret exists in one place — however briefly.",
+    "p2": "Institutional environments use architectures where the secret is never reconstructed in full. Distributed computation allows signing without any single party holding the complete key. These approaches — used by major custody providers and financial institutions — are becoming accessible but require careful, contextual implementation.",
+    "p3": "The right architecture depends on your threat model, your holdings, and your operational constraints. There is no universal answer."
+  },
+  "consultation": {
+    "title": "Your situation is unique. Your architecture should be too.",
+    "intro": "A recommendation without context is a bad recommendation. I offer tailored security architecture consultations for Bitcoin holders — from threat model assessment to implementation guidance.",
+    "tier1Title": "Security Audit & Threat Assessment",
+    "tier1Desc": "I define who you're protecting against and map your current exposure.",
+    "tier2Title": "Architecture Recommendation",
+    "tier2Desc": "A written, personalized document detailing the architecture adapted to your profile and holdings. Implementation remains your responsibility.",
+    "tier3Title": "Guided Implementation",
+    "tier3Desc": "Step-by-step guidance as you implement. I never touch your keys. Ever.",
+    "disclaimer": "All services are advisory in nature. Implementation decisions and operational responsibility remain solely with the client. I hold no access to client funds or secrets.",
+    "cta": "Request a consultation",
+    "formSuccess": "Message sent. I'll get back to you shortly.",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formMessage": "Describe your situation briefly",
+    "sending": "Sending...",
+    "send": "Send"
+  },
+  "footer": {
+    "tagline": "Bitcoin security architecture · Advisory services"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oops! Page not found",
+    "home": "Return to Home"
+  }
+}

@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import secrets from "secrets.js-grempe";
 import ShareDiagram from "./ShareDiagram";
 import { Copy, Check, AlertCircle, Shield, MapPin, Clock, Eye, TestTube, Lock } from "lucide-react";
@@ -6,6 +7,7 @@ import { Copy, Check, AlertCircle, Shield, MapPin, Clock, Eye, TestTube, Lock } 
 type Mode = "split" | "reconstruct";
 
 const SSSDemo = () => {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<Mode>("split");
   const [secret, setSecret] = useState("");
   const [totalShares, setTotalShares] = useState(3);
@@ -15,6 +17,18 @@ const SSSDemo = () => {
   const [reconstructedSecret, setReconstructedSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const bestPractices = useMemo(
+    () => [
+      { icon: MapPin, text: t("sss.bp1") },
+      { icon: Lock, text: t("sss.bp2") },
+      { icon: Shield, text: t("sss.bp3") },
+      { icon: Clock, text: t("sss.bp4") },
+      { icon: Eye, text: t("sss.bp5") },
+      { icon: TestTube, text: t("sss.bp6") },
+    ],
+    [t],
+  );
 
   const switchMode = (m: Mode) => {
     setMode(m);
@@ -28,7 +42,7 @@ const SSSDemo = () => {
   const handleSplit = useCallback(() => {
     setError(null);
     if (!secret.trim()) {
-      setError("Please enter a secret to split.");
+      setError(t("sss.errEmptySecret"));
       return;
     }
     try {
@@ -36,17 +50,17 @@ const SSSDemo = () => {
       const result = secrets.share(hex, totalShares, threshold);
       setShares(result);
       setReconstructInputs(Array(threshold).fill(""));
-    } catch (e) {
-      setError("Failed to split the secret. Please check your inputs.");
+    } catch {
+      setError(t("sss.errSplitFailed"));
     }
-  }, [secret, totalShares, threshold]);
+  }, [secret, totalShares, threshold, t]);
 
   const handleReconstruct = useCallback(() => {
     setError(null);
     setReconstructedSecret(null);
     const validShares = reconstructInputs.filter((s) => s.trim());
     if (validShares.length < 2) {
-      setError("Please provide at least 2 shares.");
+      setError(t("sss.errMinShares"));
       return;
     }
     try {
@@ -54,9 +68,9 @@ const SSSDemo = () => {
       const result = secrets.hex2str(hex);
       setReconstructedSecret(result);
     } catch {
-      setError("Shares are incompatible or insufficient.");
+      setError(t("sss.errReconstructFailed"));
     }
-  }, [reconstructInputs]);
+  }, [reconstructInputs, t]);
 
   const copyShare = async (share: string, index: number) => {
     await navigator.clipboard.writeText(share);
@@ -64,20 +78,11 @@ const SSSDemo = () => {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
-  const bestPractices = [
-    { icon: MapPin, text: "Never store all shares in the same location or medium" },
-    { icon: Lock, text: "Never store shares digitally if they protect a seed phrase" },
-    { icon: Shield, text: "One share at home, one with a trusted third party, one in a geographically separate location — never a close relative who could be identified" },
-    { icon: Clock, text: "The reconstruction moment is your most vulnerable moment — prepare the environment accordingly" },
-    { icon: Eye, text: "A share alone reveals nothing. Protect the schema (how many, what threshold), not just the shares." },
-    { icon: TestTube, text: "Test your reconstruction before you need it" },
-  ];
-
   return (
     <div>
-      {/* Mode toggle */}
       <div className="flex border-b border-border mb-8">
         <button
+          type="button"
           onClick={() => switchMode("split")}
           className={`px-6 py-3 font-mono text-sm font-medium transition-colors ${
             mode === "split"
@@ -85,9 +90,10 @@ const SSSDemo = () => {
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          SPLIT
+          {t("sss.modeSplit")}
         </button>
         <button
+          type="button"
           onClick={() => switchMode("reconstruct")}
           className={`px-6 py-3 font-mono text-sm font-medium transition-colors ${
             mode === "reconstruct"
@@ -95,7 +101,7 @@ const SSSDemo = () => {
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          RECONSTRUCT
+          {t("sss.modeReconstruct")}
         </button>
       </div>
 
@@ -103,22 +109,18 @@ const SSSDemo = () => {
         <div>
           <div className="space-y-4 max-w-lg">
             <div>
-              <label className="block font-mono text-xs font-medium text-foreground mb-1.5">
-                Enter your secret
-              </label>
+              <label className="block font-mono text-xs font-medium text-foreground mb-1.5">{t("sss.labelSecret")}</label>
               <input
                 type="text"
                 value={secret}
                 onChange={(e) => setSecret(e.target.value)}
-                placeholder="e.g. a seed phrase, a password, any string"
+                placeholder={t("sss.placeholderSecret")}
                 className="w-full px-3 py-2.5 bg-popover border border-border rounded font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
             <div className="flex gap-4">
               <div className="flex-1">
-                <label className="block font-mono text-xs font-medium text-foreground mb-1.5">
-                  Total shares (N)
-                </label>
+                <label className="block font-mono text-xs font-medium text-foreground mb-1.5">{t("sss.labelTotalShares")}</label>
                 <input
                   type="number"
                   value={totalShares}
@@ -133,9 +135,7 @@ const SSSDemo = () => {
                 />
               </div>
               <div className="flex-1">
-                <label className="block font-mono text-xs font-medium text-foreground mb-1.5">
-                  Shares required (M)
-                </label>
+                <label className="block font-mono text-xs font-medium text-foreground mb-1.5">{t("sss.labelThreshold")}</label>
                 <input
                   type="number"
                   value={threshold}
@@ -147,10 +147,11 @@ const SSSDemo = () => {
               </div>
             </div>
             <button
+              type="button"
               onClick={handleSplit}
               className="px-6 py-2.5 bg-primary text-primary-foreground font-mono text-sm font-medium rounded hover:opacity-90 transition-opacity"
             >
-              Split
+              {t("sss.split")}
             </button>
           </div>
 
@@ -161,13 +162,12 @@ const SSSDemo = () => {
                 {shares.map((share, i) => (
                   <div key={i} className="flex items-center gap-2 group">
                     <span className="font-mono text-xs text-muted-foreground w-6 shrink-0">{i + 1}.</span>
-                    <code className="flex-1 px-3 py-2 bg-secondary rounded font-mono text-xs text-foreground break-all">
-                      {share}
-                    </code>
+                    <code className="flex-1 px-3 py-2 bg-secondary rounded font-mono text-xs text-foreground break-all">{share}</code>
                     <button
+                      type="button"
                       onClick={() => copyShare(share, i)}
                       className="p-1.5 text-muted-foreground hover:text-primary transition-colors shrink-0"
-                      aria-label={`Copy share ${i + 1}`}
+                      aria-label={t("sss.copyShareAria", { n: i + 1 })}
                     >
                       {copiedIndex === i ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -180,9 +180,7 @@ const SSSDemo = () => {
       ) : (
         <div>
           <div className="space-y-3 max-w-lg">
-            <label className="block font-mono text-xs font-medium text-foreground mb-1.5">
-              Paste your shares
-            </label>
+            <label className="block font-mono text-xs font-medium text-foreground mb-1.5">{t("sss.pasteShares")}</label>
             {Array.from({ length: Math.max(2, reconstructInputs.length || 2) }, (_, i) => (
               <div key={i} className="flex items-center gap-2">
                 <span className="font-mono text-xs text-muted-foreground w-6 shrink-0">{i + 1}.</span>
@@ -193,33 +191,29 @@ const SSSDemo = () => {
                     const next = [...reconstructInputs];
                     while (next.length <= i) next.push("");
                     next[i] = e.target.value;
-                    // Add new field if typing in last
                     if (i === next.length - 1 && e.target.value && next.length < 10) {
                       next.push("");
                     }
                     setReconstructInputs(next);
                   }}
-                  placeholder={`Share ${i + 1}`}
+                  placeholder={t("sss.sharePlaceholder", { n: i + 1 })}
                   className="flex-1 px-3 py-2.5 bg-popover border border-border rounded font-mono text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
             ))}
             <button
+              type="button"
               onClick={handleReconstruct}
               className="px-6 py-2.5 bg-primary text-primary-foreground font-mono text-sm font-medium rounded hover:opacity-90 transition-opacity"
             >
-              Reconstruct
+              {t("sss.reconstruct")}
             </button>
           </div>
 
           {reconstructedSecret && (
             <div className="mt-6">
-              <label className="block font-mono text-xs font-medium text-foreground mb-1.5">
-                Reconstructed secret
-              </label>
-              <code className="block px-4 py-3 bg-secondary rounded font-mono text-sm text-foreground break-all">
-                {reconstructedSecret}
-              </code>
+              <label className="block font-mono text-xs font-medium text-foreground mb-1.5">{t("sss.reconstructedLabel")}</label>
+              <code className="block px-4 py-3 bg-secondary rounded font-mono text-sm text-foreground break-all">{reconstructedSecret}</code>
             </div>
           )}
         </div>
@@ -232,9 +226,8 @@ const SSSDemo = () => {
         </div>
       )}
 
-      {/* Best Practices */}
       <div className="mt-12 pt-8 border-t border-border">
-        <h4 className="font-display text-sm font-semibold text-foreground mb-6">BEST PRACTICES</h4>
+        <h4 className="font-display text-sm font-semibold text-foreground mb-6">{t("sss.bestPracticesTitle")}</h4>
         <ol className="space-y-4">
           {bestPractices.map(({ icon: Icon, text }, i) => (
             <li key={i} className="flex items-start gap-3">
@@ -247,9 +240,7 @@ const SSSDemo = () => {
         </ol>
       </div>
 
-      <p className="mt-8 font-body text-xs text-muted-foreground leading-relaxed">
-        This demo runs entirely in your browser. Nothing is transmitted. Use for educational purposes. For production implementations protecting significant value, consult a specialist.
-      </p>
+      <p className="mt-8 font-body text-xs text-muted-foreground leading-relaxed">{t("sss.disclaimer")}</p>
     </div>
   );
 };
