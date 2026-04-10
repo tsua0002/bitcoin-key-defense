@@ -1,6 +1,6 @@
 import WrenchComic from "@/components/WrenchComic";
 import SSSDemo from "@/components/SSSDemo";
-import { Shield, Target, AlertTriangle, Mail } from "lucide-react";
+import { Shield, Target, AlertTriangle, Mail, Github } from "lucide-react";
 import React, { useState } from "react";
 
 const SectionDivider = () => <hr className="border-border my-0" />;
@@ -31,16 +31,27 @@ const Index = () => {
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
           <span className="font-display text-xs font-bold tracking-wider text-foreground">PHYSICAL SECURITY</span>
-          <div className="hidden sm:flex items-center gap-6">
-            {["Threat Model", "SSS Demo", "Consultation"].map((label) => (
-              <a
-                key={label}
-                href={`#${label.toLowerCase().replace(/\s/g, "-")}`}
-                className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
-              >
-                {label}
-              </a>
-            ))}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="hidden sm:flex items-center gap-6">
+              {["Threat Model", "SSS Demo", "Consultation"].map((label) => (
+                <a
+                  key={label}
+                  href={`#${label.toLowerCase().replace(/\s/g, "-")}`}
+                  className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+            <a
+              href="https://github.com/tsua0002/bitcoin-key-defense"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source on GitHub"
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Github className="w-5 h-5" strokeWidth={1.75} />
+            </a>
           </div>
         </div>
       </nav>
