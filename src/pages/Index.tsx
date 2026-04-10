@@ -181,15 +181,22 @@ const Index = () => {
         </button>
 
         {contactOpen && (
-          <form
-            className="mt-8 space-y-4 max-w-md"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.target as HTMLFormElement;
-              const data = new FormData(form);
-              window.location.href = `mailto:contact@example.com?subject=Security Consultation Request&body=Name: ${data.get("name")}%0AEmail: ${data.get("email")}%0A%0A${data.get("message")}`;
-            }}
-          >
+        <form
+          className="mt-8 space-y-4 max-w-md"
+          action="https://formspree.io/f/mpqogoaa"
+          method="POST"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const data = new FormData(form);
+            await fetch("https://formspree.io/f/mpqogoaa", {
+              method: "POST",
+              body: data,
+            });
+            form.reset();
+            alert("Message envoyé — je reviendrai vers vous rapidement.");
+          }}
+        >
             <input
               name="name"
               type="text"
