@@ -1,12 +1,29 @@
 import WrenchComic from "@/components/WrenchComic";
 import SSSDemo from "@/components/SSSDemo";
 import { Shield, Target, AlertTriangle, Mail } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const SectionDivider = () => <hr className="border-border my-0" />;
 
 const Index = () => {
   const [contactOpen, setContactOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSending(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    await fetch("https://formspree.io/f/mpqogoaa", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+    setSending(false);
+    setSubmitted(true);
+    form.reset();
+  };
 
   return (
     <div className="min-h-screen">
@@ -180,52 +197,45 @@ const Index = () => {
           Request a consultation
         </button>
 
-        {contactOpen && (
-        <form
-          className="mt-8 space-y-4 max-w-md"
-          action="https://formspree.io/f/mpqogoaa"
-          method="POST"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const form = e.target as HTMLFormElement;
-            const data = new FormData(form);
-            await fetch("https://formspree.io/f/mpqogoaa", {
-              method: "POST",
-              body: data,
-            });
-            form.reset();
-            alert("Message envoyé — je reviendrai vers vous rapidement.");
-          }}
-        >
-            <input
-              name="name"
-              type="text"
-              required
-              placeholder="Name"
-              className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            />
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="Email"
-              className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            />
-            <textarea
-              name="message"
-              required
-              rows={4}
-              placeholder="Describe your situation briefly"
-              className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-            />
-            <button
-              type="submit"
-              className="px-6 py-2.5 bg-foreground text-background font-mono text-sm font-medium rounded hover:opacity-90 transition-opacity"
-            >
-              Send
-            </button>
-          </form>
-        )}
+        {contactOpen &&
+          (submitted ? (
+            <div className="mt-8 max-w-md p-6 border border-orange-300 bg-orange-50 rounded">
+              <p className="font-mono text-sm text-orange-800">
+                Message envoyé. Je reviendrai vers vous rapidement.
+              </p>
+            </div>
+          ) : (
+            <form className="mt-8 space-y-4 max-w-md" onSubmit={handleContactSubmit}>
+              <input
+                name="name"
+                type="text"
+                required
+                placeholder="Name"
+                className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="Email"
+                className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <textarea
+                name="message"
+                required
+                rows={4}
+                placeholder="Describe your situation briefly"
+                className="w-full px-3 py-2.5 bg-popover border border-border rounded font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+              />
+              <button
+                type="submit"
+                disabled={sending}
+                className="px-6 py-2.5 bg-foreground text-background font-mono text-sm font-medium rounded hover:opacity-90 transition-opacity disabled:opacity-50"
+              >
+                {sending ? "Sending..." : "Send"}
+              </button>
+            </form>
+          ))}
       </section>
 
       {/* Footer */}
