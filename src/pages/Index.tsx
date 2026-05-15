@@ -1,6 +1,5 @@
 import WrenchComic from "@/components/WrenchComic";
 import SSSDemo from "@/components/SSSDemo";
-import InstitutionalColdStorage from "@/components/InstitutionalColdStorage";
 import { Shield, Target, AlertTriangle, Mail, Github } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -192,10 +191,6 @@ const Index = () => {
           <p className="font-body text-sm text-foreground leading-relaxed font-medium">{t("above.p3")}</p>
         </div>
       </section>
-
-      <SectionDivider />
-
-      <InstitutionalColdStorage />
 
       <SectionDivider />
 
